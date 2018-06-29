@@ -3,19 +3,36 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    Image,
+    TouchableOpacity,
     } from 'react-native';
 
 export default  class Boy extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
 
-        }
+    renderButton(image){
+        return  (
+            <TouchableOpacity onPress={()=>{
+                this.props.navigator.pop();
+            }}>
+                <Image style={{width:22,height:22,margin: 5}} source={image} />
+            </TouchableOpacity>
+        )
     }
     render(){
         return (
             <View style={styles.container}>
+                <NavigationBar
+                    title ={'Girl'}
+                    style={{backgroundColor: '#FFC1C1'}}
+                    leftButton={
+                        this.renderButton(require('./res/images/ic_arrow_back_white_36pt.png'))
+                    }
+                    rightButton = {
+                        this.renderButton(require('./res/images/ic_star.png'))
+
+                    }
+                    />
                 <Text style={styles.text}>I am girl;</Text>
                 <Text style={styles.text}>我收到了男孩送的：{this.props.word}</Text>
                 <Text style={styles.text} onPress={()=>{

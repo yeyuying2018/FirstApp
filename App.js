@@ -9,30 +9,37 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+    Image,
+
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import { Navigator } from 'react-native-deprecated-custom-components';
+import Boy from './Boy';
+export default class App extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
 
-type Props = {};
-export default class App extends Component<Props> {
+    }
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style={styles.container} >
+          <Text style={{color:'#000000,fontSize: 24'}}>我的测试</Text>
+          <Navigator
+              initialRoute={{
+                component: Boy //加载的视图组件
+              }}
+              //renderScene 导航栏可以根据指定的路由来渲染场景 。调用的参数是路由和导航器。(route, navigator) => <MySceneComponent title={route.title} navigator={navigator} />
+              renderScene ={(route, navigator)=> {
+                    console.log(1);
+                    console.log(route, navigator);
+                   //route就是component
+                   let Component = route.component;
+                   return <Component navigator={navigator} {...route.params} />
+              }}
+          />
       </View>
     );
   }
@@ -43,16 +50,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  page1: {
+      backgroundColor: 'red',
+      flex: 1
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    page2: {
+        backgroundColor: 'yellow',
+        flex: 1
+    },
+    images: {
+        width: 24,
+        height:20
+    }
 });
